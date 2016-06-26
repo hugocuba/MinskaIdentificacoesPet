@@ -5,17 +5,13 @@
  */
 package br.edu.ifsp;
 
+import br.edu.ifsp.dao.PessoaDAO;
 import br.edu.ifsp.dao.PessoaFisicaDAO;
-import br.edu.ifsp.dao.PlaquinhaDAO;
-import br.edu.ifsp.model.DetalhePedido;
-import br.edu.ifsp.model.Pedido;
 import br.edu.ifsp.model.Pessoa;
 import br.edu.ifsp.model.PessoaFisica;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -26,32 +22,53 @@ public class MinskaIdentificacoesPet {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
+        /*Plaquinha p = new Plaquinha();
+        p.setNome("Nome da plaquinha");
+        p.setValor(BigDecimal.valueOf(10));
+        p.setDescricao("Descricao da Plaquinha");
+        p.setPeso(BigDecimal.valueOf(0.100));
+        p.setQtdCampos(2);
         
-    	// DAOs
-    	PessoaFisicaDAO pfDao = new PessoaFisicaDAO();
-    	PlaquinhaDAO placaDao = new PlaquinhaDAO();
-    	
-    	// Cliente
-    	Pessoa cliente = pfDao.getById(2);
-    	
-    	// Vendedor
-    	Pessoa vendedor = pfDao.getById(1);
-    	
-    	// Pedido
-    	Pedido pedido = new Pedido();
-    	pedido.setCliente(cliente);
-    	pedido.setVendedor(vendedor);
-    	pedido.setDataPedido(new Date("2016-06-01"));
-    	
-    	// Detalhe Pedido (itens pedido)
-    	DetalhePedido item1 = new DetalhePedido();
-    	item1.setItem(placaDao.getById(1));
-    	item1.addTexto("Linha 1").addTexto("Linha 2");
-    	DetalhePedido item2 = new DetalhePedido();
-    	item2.setItem(placaDao.getById(2));
-    	item2.addTexto("Linha 3").addTexto("Linha 4");
+        PlaquinhaDAO pDAO = new PlaquinhaDAO();
         
+        Plaquinha p2 = pDAO.getById(2);
+        
+        System.out.println(p2.getDescricao());
+        
+        PessoaFisicaDAO pfDAO = new PessoaFisicaDAO();
+        PessoaFisica p1 = pfDAO.getById(1);
+        
+        System.out.println(p1.getNome());*/
+        
+        Pessoa p = new Pessoa();
+        
+        p.setBairro("Gaivotas");
+        p.setCep("11673460");
+        p.setComplemento("");
+        p.setDataCadastro("2016-06-28");
+        p.setEmail("hscuba@gmail.com");
+        p.setIdCidade(1);
+        p.setLogradouro("Cardeal");
+        p.setNome("Maria");
+        p.setNumeroCasa(150);
+        p.setIdPessoa(3);
+        
+        //PessoaDAO pDAO = new PessoaDAO();
+        
+        //pDAO.insert(p);
+        
+        PessoaFisica pf = new PessoaFisica();
+        
+        pf.setPessoa(p);
+        
+        pf.setDataNascimento("1988-03-31");
+        
+        PessoaFisicaDAO pfDAO = new PessoaFisicaDAO();
+        
+        pfDAO.insert(pf);
     }
+
 
 }

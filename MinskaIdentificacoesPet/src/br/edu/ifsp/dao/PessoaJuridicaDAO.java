@@ -5,38 +5,38 @@
  */
 package br.edu.ifsp.dao;
 
-import br.edu.ifsp.model.Pedido;
+import br.edu.ifsp.model.PessoaJuridica;
 import java.util.List;
 
 /**
  *
- * @author hugo
+ * @author Hugo
  */
-public class PedidoDAO extends DAO<Pedido>{
+public class PessoaJuridicaDAO extends DAO<PessoaJuridica> {
 
     @Override
-    public boolean insert(Pedido objeto) {
-       return true;
-    }
-
-    @Override
-    public boolean update(Pedido objeto) {
+    public boolean insert(PessoaJuridica objeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Pedido objeto) {
+    public boolean update(PessoaJuridica objeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Pedido> listAll() {
+    public boolean delete(PessoaJuridica objeto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Pedido getById(int id) {
+    public List<PessoaJuridica> listAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    public PessoaJuridica getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

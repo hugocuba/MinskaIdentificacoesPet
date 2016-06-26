@@ -5,7 +5,6 @@
  */
 package br.edu.ifsp.dao;
 
-import br.edu.ifsp.model.PessoaFisica;
 import br.edu.ifsp.model.Plaquinha;
 
 import java.sql.ResultSet;
@@ -18,7 +17,7 @@ import java.util.List;
 public class PlaquinhaDAO extends DAO<Plaquinha> {
 
     @Override
-    public boolean insert(Plaquinha objeto) {
+    public int insert(Plaquinha objeto) {
         try {
 
             database.connect();
@@ -29,16 +28,14 @@ public class PlaquinhaDAO extends DAO<Plaquinha> {
             sql = sql.replaceFirst("\\?", "\"" + objeto.getDescricao() + "\"");
             sql = sql.replaceFirst("\\?", objeto.getQtdCampos().toString());
             sql = sql.replaceFirst("\\?", objeto.getPeso().toString());
-            
-            System.out.println(sql);
 
             return database.insert(sql);
 
         } catch (Exception e) {
-            
+
             e.printStackTrace();
             return false;
-            
+
         } finally {
 
             database.disconnect();
@@ -62,30 +59,32 @@ public class PlaquinhaDAO extends DAO<Plaquinha> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-	@Override
-	public Plaquinha getById(int id) {
-		Plaquinha p = new Plaquinha();
-		
-		String sql = "SELECT * FROM ModeloPlaca WHERE idModeloPlaca=?";
-		sql = sql.replaceFirst("\\?", Integer.toString(id));
-		
-		try {
-			database.connect();
-			ResultSet rs = database.query(sql);
-			p.setIdModeloPlaca(rs.getInt("idModeloPlaca"));
-			p.setValor(rs.getBigDecimal("valor"));
-			p.setNome(rs.getString("nome"));
-			p.setDescricao(rs.getString("descricao"));
-			p.setQtdCampos(rs.getInt("qtdCampos"));
-			p.setPeso(rs.getBigDecimal("peso"));
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return null;
-		} finally {
-			database.disconnect();
-		}
-		
-		return p;
-	}
+    @Override
+    public Plaquinha getById(int id) {
+        Plaquinha p = new Plaquinha();
+
+        String sql = "SELECT * FROM ModeloPlaca WHERE idModeloPlaca = ?";
+        sql = sql.replaceFirst("\\?", Integer.toString(id));
+        
+        try {
+            database.connect();
+            ResultSet rs = database.query(sql);
+            if(rs.next()){
+                p.setIdModeloPlaca(rs.getInt("idModeloPlaca"));
+                p.setValor(rs.getBigDecimal("valor"));
+                p.setNome(rs.getString("nome"));
+                p.setDescricao(rs.getString("descricao"));
+                p.setQtdCampos(rs.getInt("qtdCampos"));
+                p.setPeso(rs.getBigDecimal("peso"));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            database.disconnect();
+        }
+
+        return p;
+    }
 
 }

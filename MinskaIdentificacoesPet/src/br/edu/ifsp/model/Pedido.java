@@ -19,32 +19,8 @@ public class Pedido implements IModel {
     private BigDecimal valorFrete;
     private List<DetalhePedido> itens;
     private Pessoa cliente;
-	private Pessoa vendedor;
-	private Date dataPedido;
-	
-    public Date getDataPedido() {
-		return dataPedido;
-	}
-
-	public void setDataPedido(Date dataPedido) {
-		this.dataPedido = dataPedido;
-	}
-
-	public Pessoa getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Pessoa cliente) {
-		this.cliente = cliente;
-	}
-
-	public Pessoa getVendedor() {
-		return vendedor;
-	}
-
-	public void setVendedor(Pessoa vendedor) {
-		this.vendedor = vendedor;
-	}
+    private Pessoa vendedor;
+    private Date dataPedido;
 
     public Integer getIdPedido() {
         return idPedido;
@@ -52,10 +28,6 @@ public class Pedido implements IModel {
 
     public void setIdPedido(Integer idPedido) {
         this.idPedido = idPedido;
-    }
-
-    public Integer getIdVendedor() {
-        return vendedor.getIdPessoa();
     }
 
     public BigDecimal getValorFrete() {
@@ -73,9 +45,30 @@ public class Pedido implements IModel {
     public void setItens(List<DetalhePedido> itens) {
         this.itens = itens;
     }
-    
-    public void addItem(DetalhePedido item) {
-    	this.itens.add(item);
+
+    public Pessoa getCliente() {
+        return cliente;
     }
 
+    public void setCliente(Pessoa cliente) {
+        this.cliente = cliente;
+    }
+
+    public Pessoa getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Pessoa vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public Date getDataPedido() {
+        return dataPedido;
+    }
+
+    public void setDataPedido(Date dataPedido) {
+        this.dataPedido = dataPedido;
+    }
+    
+    
 }

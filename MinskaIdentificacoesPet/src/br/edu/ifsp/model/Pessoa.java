@@ -5,35 +5,38 @@
  */
 package br.edu.ifsp.model;
 
+import java.util.Date;
+
 /**
  *
  * @author Hugo
  */
 public class Pessoa implements IModel {
 
-    private int idPessoa;
-    private int idCidade;
+    private Integer idPessoa;
+    private Integer idCidade;
     private String nome;
     private String email;
     private String logradouro;
-    private int numeroCasa;
+    private Integer numeroCasa;
     private String bairro;
     private String cep;
     private String complemento;
+    private String dataCadastro;
 
-    public int getIdPessoa() {
+    public Integer getIdPessoa() {
         return idPessoa;
     }
 
-    public void setIdPessoa(int idPessoa) {
+    public void setIdPessoa(Integer idPessoa) {
         this.idPessoa = idPessoa;
     }
 
-    public int getIdCidade() {
+    public Integer getIdCidade() {
         return idCidade;
     }
 
-    public void setIdCidade(int idCidade) {
+    public void setIdCidade(Integer idCidade) {
         this.idCidade = idCidade;
     }
 
@@ -61,11 +64,11 @@ public class Pessoa implements IModel {
         this.logradouro = logradouro;
     }
 
-    public int getNumeroCasa() {
+    public Integer getNumeroCasa() {
         return numeroCasa;
     }
 
-    public void setNumeroCasa(int numeroCasa) {
+    public void setNumeroCasa(Integer numeroCasa) {
         this.numeroCasa = numeroCasa;
     }
 
@@ -93,4 +96,13 @@ public class Pessoa implements IModel {
         this.complemento = complemento;
     }
 
+    public String getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(String dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+    
+    
 }

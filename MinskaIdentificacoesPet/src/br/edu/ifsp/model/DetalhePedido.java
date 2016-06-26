@@ -6,63 +6,48 @@
 package br.edu.ifsp.model;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  *
  * @author Hugo
  */
-public class DetalhePedido implements IModel{
+public class DetalhePedido implements IModel {
 
-    private int idDetalhePedido;
-    private int idPedido;
-    private int idModeloPlaca;
-    private List<String> textos;
-	private Plaquinha item;
+    private Pedido pedido;
+    private Plaquinha plaquinha;
+    private String textos;
+    private BigDecimal valor;
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public Plaquinha getPlaquinha() {
+        return plaquinha;
+    }
+
+    public void setPlaquinha(Plaquinha plaquinha) {
+        this.plaquinha = plaquinha;
+    }
+
+    public String getTextos() {
+        return textos;
+    }
+
+    public void setTextos(String textos) {
+        this.textos = textos;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
     
-    public List<String> getTextos() {
-		return textos;
-	}
-
-	public void setTextos(List<String> textos) {
-		this.textos = textos;
-	}
-	
-	public DetalhePedido addTexto(String texto) {
-		this.textos.add(texto);
-		return this;
-	}
-
-    public Plaquinha getItem() {
-		return item;
-	}
-
-	public void setItem(Plaquinha item) {
-		this.item = item;
-	}
-
-	public int getIdDetalhePedido() {
-        return idDetalhePedido;
-    }
-
-    public void setIdDetalhePedido(int idDetalhePedido) {
-        this.idDetalhePedido = idDetalhePedido;
-    }
-
-    public int getIdPedido() {
-        return idPedido;
-    }
-
-    public void setIdPedido(int idPedido) {
-        this.idPedido = idPedido;
-    }
-
-    public int getIdModeloPlaca() {
-        return this.item.getIdModeloPlaca();
-    }
-
-    public void setIdModeloPlaca(int idModeloPlaca) {
-        this.idModeloPlaca = idModeloPlaca;
-    }
-
 }

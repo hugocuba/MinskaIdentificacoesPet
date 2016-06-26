@@ -13,14 +13,23 @@ import java.sql.Date;
  */
 public class PessoaFisica extends Pessoa implements IModel {
 
-    private Date dataNascimento;
+    private Pessoa pessoa;
+    private String dataNascimento;
     private String cpf;
 
-    public Date getDataNascimento() {
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -31,5 +40,4 @@ public class PessoaFisica extends Pessoa implements IModel {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-
 }

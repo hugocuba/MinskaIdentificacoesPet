@@ -11,7 +11,7 @@ public abstract class DAO<E extends IModel> {
 	protected Database database;
 	
 	public DAO() {
-		this.database = new MariaDatabase("minska", "xPDcwvCs9Hqx5OZZ", "minska");
+		this.database = new MariaDatabase("root", "", "minska");
 	}
 	
 	public abstract boolean insert(E objeto);
