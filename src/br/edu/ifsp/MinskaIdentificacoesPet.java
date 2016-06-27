@@ -7,17 +7,8 @@ package br.edu.ifsp;
 
 import br.edu.ifsp.control.Control;
 import br.edu.ifsp.control.PedidoControl;
-import br.edu.ifsp.control.PessoaControl;
-import br.edu.ifsp.dao.PessoaDAO;
-import br.edu.ifsp.dao.PessoaFisicaDAO;
 import br.edu.ifsp.model.DetalhePedido;
 import br.edu.ifsp.model.Pedido;
-import br.edu.ifsp.model.Pessoa;
-import br.edu.ifsp.model.PessoaFisica;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  *
