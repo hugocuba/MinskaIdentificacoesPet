@@ -30,15 +30,21 @@ public class PlaquinhaControl extends Control<Plaquinha> {
     }
 
     public boolean insert(Map<String, JTextComponent> dadosFormPlaquinha) {
-        
+
         Plaquinha p = new Plaquinha();
-        
-        p.setNome(dadosFormPlaquinha.get("nome").getText());
-        p.setDescricao(dadosFormPlaquinha.get("descricao").getText());
-        p.setQtdCampos(Integer.parseInt(dadosFormPlaquinha.get("qtdCampos").getText()));
-        p.setValor(new BigDecimal(dadosFormPlaquinha.get("valor").getText()));
-        p.setPeso(new BigDecimal(dadosFormPlaquinha.get("peso").getText()));
-    
+
+        try {
+
+            p.setNome(dadosFormPlaquinha.get("nome").getText());
+            p.setDescricao(dadosFormPlaquinha.get("descricao").getText());
+            p.setQtdCampos(Integer.parseInt(dadosFormPlaquinha.get("qtdCampos").getText()));
+            p.setValor(new BigDecimal(dadosFormPlaquinha.get("valor").getText()));
+            p.setPeso(new BigDecimal(dadosFormPlaquinha.get("peso").getText()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return dao.insert(p);
     }
 

@@ -36,10 +36,10 @@ public class PlaquinhaTableModel extends DefaultTableModel {
     }
 
     public Class<?>[] types = new Class[]{
-        String.class, String.class, BigDecimal.class, Integer.class, BigDecimal.class
+        Integer.class, String.class, String.class, BigDecimal.class, Integer.class, BigDecimal.class
     };
 
-    boolean[] canEdit = new boolean[]{false, false, false, false, false};
+    boolean[] canEdit = new boolean[]{false, false, false, false, false, false};
 
 
     @Override
@@ -52,11 +52,11 @@ public class PlaquinhaTableModel extends DefaultTableModel {
         return canEdit[columnIndex];
     }
 
-    public void addRow(String nome, String descricao, BigDecimal peso, Integer qtdCampos, BigDecimal valor) {
-        super.addRow(new Object[]{nome, descricao, peso, qtdCampos, valor});
+    public void addRow(Integer idModeloPlaca, String nome, String descricao, BigDecimal peso, Integer qtdCampos, BigDecimal valor) {
+        super.addRow(new Object[]{idModeloPlaca, nome, descricao, peso, qtdCampos, valor});
     }
 
     public void addRow(Plaquinha plaquinha) {
-        super.addRow(new Object[]{plaquinha.getNome(), plaquinha.getDescricao(), plaquinha.getPeso(), plaquinha.getQtdCampos(), plaquinha.getValor()});
+        super.addRow(new Object[]{plaquinha.getIdModeloPlaca(), plaquinha.getNome(), plaquinha.getDescricao(), plaquinha.getPeso(), plaquinha.getQtdCampos(), plaquinha.getValor()});
     }
 }

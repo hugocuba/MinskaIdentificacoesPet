@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.text.JTextComponent;
 import br.edu.ifsp.view.model.PlaquinhaTableModel;
+import java.util.function.Consumer;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +30,6 @@ public class PlaquinhaForm extends javax.swing.JFrame {
      */
     public PlaquinhaForm() {
         initComponents();
-
         control = new PlaquinhaControl(new PlaquinhaDAO());
     }
 
@@ -49,8 +50,8 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         descricaoField = new javax.swing.JTextArea();
         labelPeso = new javax.swing.JLabel();
         qtdCamposField = new javax.swing.JFormattedTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        labelQtd = new javax.swing.JLabel();
+        labelValor = new javax.swing.JLabel();
         jPanelBotoes = new javax.swing.JPanel();
         btnConfirmar = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
@@ -62,6 +63,8 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         plaquinhaTable = new javax.swing.JTable();
         pesoField = new javax.swing.JFormattedTextField();
         valorField = new javax.swing.JFormattedTextField();
+        labelId = new javax.swing.JLabel();
+        idField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Plaquinhas - Minska Identificações Pet");
@@ -94,11 +97,11 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         qtdCamposField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         qtdCamposField.setEnabled(false);
 
-        jLabel5.setText("Qtd de campos");
-        jLabel5.setEnabled(false);
+        labelQtd.setText("Qtd de campos");
+        labelQtd.setEnabled(false);
 
-        jLabel6.setText("Valor em R$");
-        jLabel6.setEnabled(false);
+        labelValor.setText("Valor em R$");
+        labelValor.setEnabled(false);
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.setEnabled(false);
@@ -175,7 +178,7 @@ public class PlaquinhaForm extends javax.swing.JFrame {
 
         plaquinhaTable.setModel(new PlaquinhaTableModel(
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+                "ID", "Nome", "Descrição", "Peso", "Campos", "Valor"
             },
 
             new Object[][] {}
@@ -199,6 +202,11 @@ public class PlaquinhaForm extends javax.swing.JFrame {
             }
         });
 
+        labelId.setText("ID");
+        labelId.setEnabled(false);
+
+        idField.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -217,25 +225,28 @@ public class PlaquinhaForm extends javax.swing.JFrame {
                                     .addComponent(pesoField, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelQtd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(qtdCamposField, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(valorField, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)))
+                                    .addComponent(labelValor)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labelDesc)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nomeField, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(nomeField, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelNome))
+                                .addGap(32, 32, 32)
+                                .addComponent(labelId))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addGap(46, 46, 46)))
                         .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelNome)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(210, 210, 210)
-                                .addComponent(jLabel1)))
+                        .addGap(330, 330, 330)
+                        .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -248,9 +259,13 @@ public class PlaquinhaForm extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(labelNome)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelNome)
+                            .addComponent(labelId))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nomeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nomeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(labelDesc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -260,8 +275,8 @@ public class PlaquinhaForm extends javax.swing.JFrame {
                             .addComponent(labelPeso)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
+                                    .addComponent(labelQtd)
+                                    .addComponent(labelValor))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(qtdCamposField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,10 +294,8 @@ public class PlaquinhaForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        
-        enableDataPanel(true);
 
-        /*Map<String, JTextComponent> dadosFormPlaquinha = new HashMap<>();
+        Map<String, JTextComponent> dadosFormPlaquinha = new HashMap<>();
 
         dadosFormPlaquinha.put("nome", nomeField);
         dadosFormPlaquinha.put("descricao", descricaoField);
@@ -290,7 +303,15 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         dadosFormPlaquinha.put("valor", valorField);
         dadosFormPlaquinha.put("peso", pesoField);
 
-        System.out.println(control.insert(dadosFormPlaquinha));*/
+        if (control.insert(dadosFormPlaquinha)) {
+            JOptionPane.showMessageDialog(null, "Plaquinha cadastrada com sucesso!");
+            enableDataPanel(false);
+            preencherTable();
+            limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Problema ao cadastrar plaquinha :(", "Ops!", 2);
+        }
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
@@ -302,20 +323,33 @@ public class PlaquinhaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void onOpen(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onOpen
-        Control<Plaquinha> control = new PlaquinhaControl(new PlaquinhaDAO());
+        preencherTable();
+    }//GEN-LAST:event_onOpen
 
-        List<Plaquinha> plaquinhaList = control.listAll();
+    private void preencherTable() {
+        Control<Plaquinha> plaquinhaControl = new PlaquinhaControl(new PlaquinhaDAO());
+
+        List<Plaquinha> plaquinhaList = plaquinhaControl.listAll();
 
         PlaquinhaTableModel model = (PlaquinhaTableModel) this.plaquinhaTable.getModel();
-
-        for (Plaquinha p : plaquinhaList) {
-            model.addRow(p);
-        }
-    }//GEN-LAST:event_onOpen
+        
+        model.setNumRows(0);
+        
+        plaquinhaList.stream().forEach(model::addRow);
+    }
 
     private void enableDataPanel(boolean enabled) {
         this.labelNome.setEnabled(enabled);
         this.nomeField.setEnabled(enabled);
+        this.labelDesc.setEnabled(enabled);
+        this.descricaoField.setEnabled(enabled);
+        this.labelPeso.setEnabled(enabled);
+        this.pesoField.setEnabled(enabled);
+        this.labelValor.setEnabled(enabled);
+        this.valorField.setEnabled(enabled);
+        this.valorField.setEditable(enabled);
+        this.labelQtd.setEnabled(enabled);
+        this.qtdCamposField.setEnabled(enabled);
 
         this.plaquinhaTable.setEnabled(!enabled);
         this.plaquinhaTable.setRowSelectionAllowed(!enabled);
@@ -329,12 +363,21 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         this.btnCancelar.setEnabled(enabled);
     }
 
+    private void limparCampos() {
+        nomeField.setText(null);
+        descricaoField.setText(null);
+        pesoField.setText(null);
+        qtdCamposField.setText(null);
+        valorField.setText(null);
+        idField.setText(null);
+    }
+
     private void valorFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_valorFieldActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        enableDataPanel(true);
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -346,7 +389,12 @@ public class PlaquinhaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrar1ActionPerformed
 
     private void plaquinhaTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plaquinhaTableMouseClicked
-
+        idField.setText(plaquinhaTable.getModel().getValueAt(plaquinhaTable.getSelectedRow(), 0).toString());
+        nomeField.setText(plaquinhaTable.getModel().getValueAt(plaquinhaTable.getSelectedRow(), 1).toString());
+        descricaoField.setText(plaquinhaTable.getModel().getValueAt(plaquinhaTable.getSelectedRow(), 2).toString());
+        pesoField.setText(plaquinhaTable.getModel().getValueAt(plaquinhaTable.getSelectedRow(), 3).toString());
+        qtdCamposField.setText(plaquinhaTable.getModel().getValueAt(plaquinhaTable.getSelectedRow(), 4).toString());
+        valorField.setText(plaquinhaTable.getModel().getValueAt(plaquinhaTable.getSelectedRow(), 5).toString());
     }//GEN-LAST:event_plaquinhaTableMouseClicked
 
     /**
@@ -393,15 +441,17 @@ public class PlaquinhaForm extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnDeletar;
     private javax.swing.JTextArea descricaoField;
+    private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelDesc;
+    private javax.swing.JLabel labelId;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelPeso;
+    private javax.swing.JLabel labelQtd;
+    private javax.swing.JLabel labelValor;
     private javax.swing.JTextField nomeField;
     private javax.swing.JFormattedTextField pesoField;
     private javax.swing.JTable plaquinhaTable;
