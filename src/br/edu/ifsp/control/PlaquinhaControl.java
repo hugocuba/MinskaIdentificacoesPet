@@ -8,13 +8,17 @@ package br.edu.ifsp.control;
 import br.edu.ifsp.dao.DAO;
 import br.edu.ifsp.dao.PlaquinhaDAO;
 import br.edu.ifsp.model.Plaquinha;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 
 /**
  *
  * @author Hugo
  */
-public class PlaquinhaControl extends Control<Plaquinha>{
+public class PlaquinhaControl extends Control<Plaquinha> {
 
     public PlaquinhaControl(DAO<Plaquinha> dao) {
         super(new PlaquinhaDAO());
@@ -22,7 +26,20 @@ public class PlaquinhaControl extends Control<Plaquinha>{
 
     @Override
     public List<Plaquinha> listAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.dao.listAll();
     }
+
+    public boolean insert(Map<String, JTextComponent> dadosFormPlaquinha) {
+        
+        Plaquinha p = new Plaquinha();
+        
+        p.setNome(dadosFormPlaquinha.get("nome").getText());
+        p.setDescricao(dadosFormPlaquinha.get("descricao").getText());
+        p.setQtdCampos(Integer.parseInt(dadosFormPlaquinha.get("qtdCampos").getText()));
+        p.setValor(new BigDecimal(dadosFormPlaquinha.get("valor").getText()));
+        p.setPeso(new BigDecimal(dadosFormPlaquinha.get("peso").getText()));
     
+        return dao.insert(p);
+    }
+
 }

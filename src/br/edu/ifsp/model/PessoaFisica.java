@@ -5,8 +5,6 @@
  */
 package br.edu.ifsp.model;
 
-import java.sql.Date;
-
 /**
  *
  * @author Hugo

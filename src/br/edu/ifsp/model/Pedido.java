@@ -78,6 +78,5 @@ public class Pedido implements IModel {
     public void setDataPedido(Date dataPedido) {
         this.dataPedido = dataPedido;
     }
-    
-    
+
 }

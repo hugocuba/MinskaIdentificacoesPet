@@ -5,16 +5,17 @@
  */
 package br.edu.ifsp.control;
 
-import br.edu.ifsp.dao.DAO;
 import br.edu.ifsp.dao.PedidoDAO;
 import br.edu.ifsp.model.Pedido;
+import br.edu.ifsp.model.Plaquinha;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
  *
  * @author Hugo
  */
-public class PedidoControl extends Control<Pedido>{
+public class PedidoControl extends Control<Pedido> {
 
     public PedidoControl() {
         super(new PedidoDAO());
@@ -24,5 +25,5 @@ public class PedidoControl extends Control<Pedido>{
     public List<Pedido> listAll() {
         return super.dao.listAll();
     }
-    
+
 }

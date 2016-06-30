@@ -7,8 +7,13 @@ package br.edu.ifsp;
 
 import br.edu.ifsp.control.Control;
 import br.edu.ifsp.control.PedidoControl;
+import br.edu.ifsp.dao.PessoaDAO;
 import br.edu.ifsp.model.DetalhePedido;
 import br.edu.ifsp.model.Pedido;
+import br.edu.ifsp.model.TextoPedido;
+import br.edu.ifsp.view.PedidoForm;
+import br.edu.ifsp.view.PlaquinhaForm;
+import java.text.Normalizer.Form;
 
 /**
  *
@@ -20,64 +25,34 @@ public class MinskaIdentificacoesPet {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-
-        /*Plaquinha p = new Plaquinha();
-        p.setNome("Nome da plaquinha");
-        p.setValor(BigDecimal.valueOf(10));
-        p.setDescricao("Descricao da Plaquinha");
-        p.setPeso(BigDecimal.valueOf(0.100));
-        p.setQtdCampos(2);
-        
-        PlaquinhaDAO pDAO = new PlaquinhaDAO();
-        
-        Plaquinha p2 = pDAO.getById(2);
-        
-        System.out.println(p2.getDescricao());
-        
-        PessoaFisicaDAO pfDAO = new PessoaFisicaDAO();
-        PessoaFisica p1 = pfDAO.getById(1);
-        
-        System.out.println(p1.getNome());*/
- /*Pessoa p = new Pessoa();
-        
-        p.setBairro("Gaivotas");
-        p.setCep("11673460");
-        p.setComplemento("");
-        p.setDataCadastro("2016-06-28");
-        p.setEmail("hscuba@gmail.com");
-        p.setIdCidade(1);
-        p.setLogradouro("Cardeal");
-        p.setNome("Maria");
-        p.setNumeroCasa(150);
-        p.setIdPessoa(3);
-        
-        //PessoaDAO pDAO = new PessoaDAO();
-        
-        //pDAO.insert(p);
-        
-        PessoaFisica pf = new PessoaFisica();
-        
-        pf.setPessoa(p);
-        
-        pf.setDataNascimento("1988-03-31");
-        
-        PessoaFisicaDAO pfDAO = new PessoaFisicaDAO();*/
-        Control<Pedido> control = new PedidoControl();
+        /*Control<Pedido> control = new PedidoControl();
 
         for (Pedido pedido : control.listAll()) {
-
+         
             System.out.println(pedido.getIdPedido() + ", " + pedido.getDataPedido().toString());
-
+            
             for (DetalhePedido dp : pedido.getItens()) {
 
                 System.out.println(
                         "--- " + dp.getPlaquinha().getNome()
                         + " = " + dp.getValor()
                 );
+                
+                for(TextoPedido tp : dp.getTextos()){
+                    
+                    System.out.println(
+                            "------ " + tp.getTipo() + ": " +tp.getTexto()
+                    
+                    );
+                    
+                }
+                
             }
 
-        }
+        }*/
 
+        PlaquinhaForm plaquinhaForm = new PlaquinhaForm();
+        plaquinhaForm.setVisible(true);
     }
 
 }

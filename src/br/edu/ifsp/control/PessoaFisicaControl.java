@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Hugo
  */
-public class PessoaFisicaControl extends Control<PessoaFisica>{
+public class PessoaFisicaControl extends Control<PessoaFisica> {
 
     public PessoaFisicaControl(DAO<PessoaFisica> dao) {
         super(new PessoaFisicaDAO());
@@ -24,5 +24,5 @@ public class PessoaFisicaControl extends Control<PessoaFisica>{
     public List<PessoaFisica> listAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

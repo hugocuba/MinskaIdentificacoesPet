@@ -103,6 +103,5 @@ public class Pessoa implements IModel {
     public void setDataCadastro(String dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
-    
-    
+
 }

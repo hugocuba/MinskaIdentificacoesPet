@@ -9,6 +9,7 @@ import br.edu.ifsp.model.DetalhePedido;
 import br.edu.ifsp.model.Pedido;
 import br.edu.ifsp.model.Pessoa;
 import br.edu.ifsp.model.Plaquinha;
+import br.edu.ifsp.model.TextoPedido;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class PedidoDAO extends DAO<Pedido> {
             String sqlPedido = "SELECT idPedido, idVendedor, idCliente, dataPedido, finalizado FROM Pedido";
 
             ResultSet rsPedido = database.query(sqlPedido);
-            
+
             System.out.println(rsPedido);
 
             while (rsPedido.next()) {
@@ -103,20 +104,20 @@ public class PedidoDAO extends DAO<Pedido> {
                 pedido.setCliente(cliente);
                 pedido.setVendedor(vendedor);
 
-                String sqlDetalhePedido = "SELECT idPedido, idModeloPlaca, texto, valor "
+                String sqlDetalhePedido = "SELECT idDetalhePedido, idPedido, idModeloPlaca, valor "
                         + "FROM DetalhePedido "
                         + "WHERE idPedido = " + rsPedido.getInt("idPedido");
 
                 ResultSet rsDetalhePedido = database.query(sqlDetalhePedido);
 
-                List<DetalhePedido> items = new ArrayList<>();
+                List<DetalhePedido> itensPedidos = new ArrayList<>();
 
                 while (rsDetalhePedido.next()) {
 
                     DetalhePedido dp = new DetalhePedido();
 
+                    dp.setIdDetalhePedido(rsDetalhePedido.getInt("idDetalhePedido"));
                     dp.setPedido(pedido);
-                    dp.setTextos(rsDetalhePedido.getString("texto"));
                     dp.setValor(rsDetalhePedido.getBigDecimal("valor"));
 
                     String sqlPlaquinha
@@ -140,10 +141,33 @@ public class PedidoDAO extends DAO<Pedido> {
                         dp.setPlaquinha(plaquinha);
                     }
 
-                    items.add(dp);
+                    itensPedidos.add(dp);
+                    
+                    String sqlTextoPedido
+                            = "select * from TextoPedido "
+                            + "where idDetalhePedido = " + dp.getIdDetalhePedido();
+                    
+                    ResultSet rsTextoPedido = database.query(sqlTextoPedido);
+                    
+                    List<TextoPedido> textos = new ArrayList<>();
+                    
+                    while(rsTextoPedido.next()){
+                        
+                        TextoPedido tp = new TextoPedido();
+                        
+                        tp.setTexto(rsTextoPedido.getString("texto"));
+                        tp.setTipo(rsTextoPedido.getString("tipo"));
+                        tp.setDetalhePedido(dp);
+                        
+                        textos.add(tp);
+                        
+                    }
+                    
+                    dp.setTextos(textos);
+
                 }
 
-                pedido.setItens(items);
+                pedido.setItens(itensPedidos);
 
                 list.add(pedido);
             }

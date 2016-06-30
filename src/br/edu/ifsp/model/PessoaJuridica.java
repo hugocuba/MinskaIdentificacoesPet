@@ -9,7 +9,7 @@ package br.edu.ifsp.model;
  *
  * @author Hugo
  */
-public class PessoaJuridica extends Pessoa implements IModel{
+public class PessoaJuridica extends Pessoa implements IModel {
 
     private Pessoa pessoa;
     private String cnpj;
@@ -47,5 +47,5 @@ public class PessoaJuridica extends Pessoa implements IModel{
     public void setInscricaoEstadual(String inscricaoEstadual) {
         this.inscricaoEstadual = inscricaoEstadual;
     }
- 
+
 }

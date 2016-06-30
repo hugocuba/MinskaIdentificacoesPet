@@ -12,8 +12,7 @@ import java.util.List;
  *
  * @author Hugo
  */
-public class PessoaDAO extends DAO<Pessoa>{
-
+public class PessoaDAO extends DAO<Pessoa> {
 
     @Override
     public boolean insert(Pessoa objeto) {
@@ -50,13 +49,13 @@ public class PessoaDAO extends DAO<Pessoa>{
             sql = sql.replaceFirst("\\?", objeto.getIdCidade().toString());
             sql = sql.replaceFirst("\\?", "\"" + objeto.getNome() + "\"");
             sql = sql.replaceFirst("\\?", "\"" + objeto.getEmail() + "\"");
-            sql = sql.replaceFirst("\\?", "\"" + objeto.getLogradouro()+ "\"");
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getLogradouro() + "\"");
             sql = sql.replaceFirst("\\?", objeto.getNumeroCasa().toString());
-            sql = sql.replaceFirst("\\?", "\"" + objeto.getBairro()+ "\"");
-            sql = sql.replaceFirst("\\?", "\"" + objeto.getCep()+ "\"");
-            sql = sql.replaceFirst("\\?", "\"" + objeto.getComplemento()+ "\"");
-            sql = sql.replaceFirst("\\?", "\"" + objeto.getDataCadastro()+ "\"");
-            
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getBairro() + "\"");
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getCep() + "\"");
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getComplemento() + "\"");
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getDataCadastro() + "\"");
+
             return database.insertAutoId(sql);
 
         } catch (Exception e) {
@@ -69,5 +68,5 @@ public class PessoaDAO extends DAO<Pessoa>{
             database.disconnect();
 
         }
-    }   
+    }
 }

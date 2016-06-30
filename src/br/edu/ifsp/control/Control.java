@@ -7,11 +7,11 @@ import br.edu.ifsp.model.IModel;
 
 public abstract class Control<E extends IModel> {
 
-	protected DAO<E> dao;
-	
-	public Control(DAO<E> dao) {
-		this.dao = dao;
-	}
-	
-	public abstract List<E> listAll();	
+    protected DAO<E> dao;
+
+    public Control(DAO<E> dao) {
+        this.dao = dao;
+    }
+
+    public abstract List<E> listAll();
 }

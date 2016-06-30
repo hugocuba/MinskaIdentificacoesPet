@@ -8,6 +8,7 @@ package br.edu.ifsp.dao;
 import br.edu.ifsp.model.Plaquinha;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class PlaquinhaDAO extends DAO<Plaquinha> {
 
         } catch (Exception e) {
 
-            e.getMessage();
+            e.printStackTrace();
             return false;
 
         } finally {
@@ -55,7 +56,35 @@ public class PlaquinhaDAO extends DAO<Plaquinha> {
 
     @Override
     public List<Plaquinha> listAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Plaquinha> list = new ArrayList<>();
+
+        try {
+
+            database.connect();
+
+            String sql = "select * from ModeloPlaca";
+
+            ResultSet rsPlaquinhas = database.query(sql);
+
+            while (rsPlaquinhas.next()) {
+                Plaquinha p = new Plaquinha();
+
+                p.setDescricao(rsPlaquinhas.getString("descricao"));
+                p.setIdModeloPlaca(rsPlaquinhas.getInt("idModeloPlaca"));
+                p.setNome(rsPlaquinhas.getString("nome"));
+                p.setPeso(rsPlaquinhas.getBigDecimal("peso"));
+                p.setQtdCampos(rsPlaquinhas.getInt("qtdCampos"));
+                p.setValor(rsPlaquinhas.getBigDecimal("valor"));
+
+                list.add(p);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            database.disconnect();
+        }
+        return list;
     }
 
     @Override
@@ -64,11 +93,11 @@ public class PlaquinhaDAO extends DAO<Plaquinha> {
 
         String sql = "SELECT * FROM ModeloPlaca WHERE idModeloPlaca = ?";
         sql = sql.replaceFirst("\\?", Integer.toString(id));
-        
+
         try {
             database.connect();
             ResultSet rs = database.query(sql);
-            if(rs.next()){
+            if (rs.next()) {
                 p.setIdModeloPlaca(rs.getInt("idModeloPlaca"));
                 p.setValor(rs.getBigDecimal("valor"));
                 p.setNome(rs.getString("nome"));
