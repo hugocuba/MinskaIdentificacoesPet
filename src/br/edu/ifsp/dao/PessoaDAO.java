@@ -142,7 +142,32 @@ public class PessoaDAO extends DAO<Pessoa> {
 
     @Override
     public Pessoa getById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Pessoa p = new Pessoa();
+
+        String sql = "SELECT * from Pessoa where idPessoa = ?";
+        sql = sql.replaceFirst("\\?", Integer.toString(id));
+
+        try {
+            database.connect();
+            ResultSet rs = database.query(sql);
+            if (rs.next()) {
+                p.setIdPessoa(rs.getInt("idPessoa"));
+                p.setIdCidade(rs.getInt("idCidade"));
+                p.setNome(rs.getString("nome"));
+                p.setEmail(rs.getString("email"));
+                p.setLogradouro(rs.getString("logradouro"));
+                p.setNumeroCasa(rs.getInt("numero"));
+                p.setBairro(rs.getString("bairro"));
+                p.setCep(rs.getString("cep"));
+                p.setComplemento(rs.getString("complemento"));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            database.disconnect();
+        }
+        return p;
     }
 
     @Override

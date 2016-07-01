@@ -1,9 +1,11 @@
 package br.edu.ifsp.dao;
 
+import br.edu.ifsp.model.Pessoa;
 import java.sql.ResultSet;
 import java.util.List;
 
 import br.edu.ifsp.model.PessoaFisica;
+import java.util.ArrayList;
 
 public class PessoaFisicaDAO extends DAO<PessoaFisica> {
 
@@ -34,20 +36,79 @@ public class PessoaFisicaDAO extends DAO<PessoaFisica> {
 
     @Override
     public boolean update(PessoaFisica objeto) {
-        // TODO Auto-generated method stub
-        return false;
+        try {
+
+            database.connect();
+
+            String sql = "update PessoaFisica set dataNascimento = ?, cpf = ?"
+                    + "where idPessoa = ?";
+
+            sql.replaceFirst("\\?", objeto.getDataNascimento().toString());
+            sql.replaceFirst("\\?", objeto.getCpf().toString());
+            sql.replaceFirst("\\?", objeto.getPessoa().getIdPessoa().toString());
+
+            return database.update(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            database.disconnect();
+        }
     }
 
     @Override
     public boolean delete(PessoaFisica objeto) {
-        // TODO Auto-generated method stub
-        return false;
+        try {
+            database.connect();
+
+            String sql = "delete from PessoaFisica where idPessoa = ?";
+
+            sql.replaceFirst("\\?", objeto.getPessoa().getIdPessoa().toString());
+
+            return database.delete(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            database.disconnect();
+        }
     }
 
     @Override
     public List<PessoaFisica> listAll() {
-        // TODO Auto-generated method stub
-        return null;
+        
+        List<PessoaFisica> list = new ArrayList<>();
+        
+        try{
+            
+            database.connect();
+            
+            String sql = "select idPessoa, dataNascimento, cpf from PessoaFisica";
+            ResultSet rsPessoaFisica = database.query(sql);
+            
+            while(rsPessoaFisica.next()){
+                PessoaFisica pf = new PessoaFisica();
+                
+                pf.setCpf(rsPessoaFisica.getString("cpf"));
+                pf.setDataNascimento(rsPessoaFisica.getString("dataNascimento"));
+                
+                PessoaDAO pDAO = new PessoaDAO();
+                Pessoa p = pDAO.getById(rsPessoaFisica.getInt("idPessoa"));
+                
+                pf.setPessoa(p);
+                
+                list.add(pf);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            database.disconnect();
+        }
+        
+        return list;
+        
     }
 
     @Override
@@ -85,7 +146,7 @@ public class PessoaFisicaDAO extends DAO<PessoaFisica> {
 
     @Override
     public int insertAutoId(PessoaFisica objeto) {
-        return 0;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

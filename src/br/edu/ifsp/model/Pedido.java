@@ -20,7 +20,7 @@ public class Pedido implements IModel {
     private List<DetalhePedido> itens;
     private Pessoa cliente;
     private Pessoa vendedor;
-    private Date dataPedido;
+    private String dataPedido;
     private boolean finalizado;
 
     public boolean isFinalizado() {
@@ -71,11 +71,11 @@ public class Pedido implements IModel {
         this.vendedor = vendedor;
     }
 
-    public Date getDataPedido() {
+    public String getDataPedido() {
         return dataPedido;
     }
 
-    public void setDataPedido(Date dataPedido) {
+    public void setDataPedido(String dataPedido) {
         this.dataPedido = dataPedido;
     }
 
