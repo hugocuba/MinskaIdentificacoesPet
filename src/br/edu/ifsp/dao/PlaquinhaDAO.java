@@ -46,12 +46,50 @@ public class PlaquinhaDAO extends DAO<Plaquinha> {
 
     @Override
     public boolean update(Plaquinha objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            database.connect();
+            
+            String sql = "update ModeloPlaca set valor = ?, nome = ?, descricao = ?, qtdCampos = ?, peso = ?"
+                    + "where idModeloPlaca = ?";
+            
+            
+            sql = sql.replaceFirst("\\?", objeto.getValor().toString());
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getNome() + "\"");
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getDescricao() + "\"");
+            sql = sql.replaceFirst("\\?", objeto.getQtdCampos().toString());
+            sql = sql.replaceFirst("\\?", objeto.getPeso().toString());
+            sql = sql.replaceFirst("\\?", objeto.getIdModeloPlaca().toString());
+            
+            System.out.println(sql);
+            
+            return database.update(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            database.disconnect();
+        }
     }
 
     @Override
     public boolean delete(Plaquinha objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            
+            database.connect();
+            
+            String sql = "delete from ModeloPlaca where idModeloPlaca = ?";
+            
+            sql = sql.replaceFirst("\\?", objeto.getIdModeloPlaca().toString());
+            
+            System.out.println(sql);
+            
+            return database.delete(sql);
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }finally{
+            database.disconnect();
+        }
     }
 
     @Override

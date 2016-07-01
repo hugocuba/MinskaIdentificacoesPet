@@ -47,5 +47,39 @@ public class PlaquinhaControl extends Control<Plaquinha> {
 
         return dao.insert(p);
     }
+    
+    public boolean update(Map<String, JTextComponent> dadosFormPlaquinha){
+        
+        Plaquinha p = new Plaquinha();
+        
+        try{
+            
+            p.setNome(dadosFormPlaquinha.get("nome").getText());
+            p.setDescricao(dadosFormPlaquinha.get("descricao").getText());
+            p.setQtdCampos(Integer.parseInt(dadosFormPlaquinha.get("qtdCampos").getText()));
+            p.setValor(new BigDecimal(dadosFormPlaquinha.get("valor").getText()));
+            p.setPeso(new BigDecimal(dadosFormPlaquinha.get("peso").getText()));
+            p.setIdModeloPlaca(Integer.parseInt(dadosFormPlaquinha.get("id").getText()));
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        return dao.update(p);
+    }
+    
+    public boolean delete(Map<String, JTextComponent> dadosFormPlaquinha){
+        
+        Plaquinha p = new Plaquinha();
+        
+        try{
+            p.setIdModeloPlaca(Integer.parseInt(dadosFormPlaquinha.get("id").getText()));
+            return dao.delete(p);
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }

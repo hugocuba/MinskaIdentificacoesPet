@@ -22,7 +22,7 @@ public class PessoaFisicaControl extends Control<PessoaFisica> {
 
     @Override
     public List<PessoaFisica> listAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.dao.listAll();
     }
 
 }

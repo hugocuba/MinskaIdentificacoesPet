@@ -176,6 +176,7 @@ public class MariaDatabase implements Database {
     /**
      * Método para excluir um registro do banco de dados
      *
+     * @param sql
      * @return boolean - Retorna um valor maior que zero caso a operação seja
      * realizada com sucesso
      */
@@ -190,7 +191,7 @@ public class MariaDatabase implements Database {
             result = ps.executeUpdate();
 
         } catch (Exception e) {
-            e.getMessage();
+            e.printStackTrace();
         }
 
         return result > 0;

@@ -51,8 +51,11 @@ public class MinskaIdentificacoesPet {
 
         }*/
 
-        PlaquinhaForm plaquinhaForm = new PlaquinhaForm();
-        plaquinhaForm.setVisible(true);
+        //PlaquinhaForm plaquinhaForm = new PlaquinhaForm();
+        //plaquinhaForm.setVisible(true);
+        
+        PedidoForm pedidoForm = new PedidoForm();
+        pedidoForm.setVisible(true);
     }
 
 }

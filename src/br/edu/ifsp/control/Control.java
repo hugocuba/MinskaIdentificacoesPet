@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.edu.ifsp.dao.DAO;
 import br.edu.ifsp.model.IModel;
+import br.edu.ifsp.model.Pessoa;
 
 public abstract class Control<E extends IModel> {
 

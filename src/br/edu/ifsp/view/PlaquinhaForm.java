@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.text.JTextComponent;
 import br.edu.ifsp.view.model.PlaquinhaTableModel;
-import java.util.function.Consumer;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +23,7 @@ import javax.swing.JOptionPane;
 public class PlaquinhaForm extends javax.swing.JFrame {
 
     private final PlaquinhaControl control;
+    private int escolha;
 
     /**
      * Creates new form PlaquinhaFrame
@@ -104,7 +104,6 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         labelValor.setEnabled(false);
 
         btnConfirmar.setText("Confirmar");
-        btnConfirmar.setEnabled(false);
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmarActionPerformed(evt);
@@ -112,7 +111,6 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         });
 
         btnAtualizar.setText("Atualizar");
-        btnAtualizar.setEnabled(false);
         btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtualizarActionPerformed(evt);
@@ -120,7 +118,6 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         });
 
         btnDeletar.setText("Deletar");
-        btnDeletar.setEnabled(false);
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletarActionPerformed(evt);
@@ -128,6 +125,7 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setEnabled(false);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -135,7 +133,6 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
-        btnCancelar.setEnabled(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -294,7 +291,6 @@ public class PlaquinhaForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-
         Map<String, JTextComponent> dadosFormPlaquinha = new HashMap<>();
 
         dadosFormPlaquinha.put("nome", nomeField);
@@ -302,28 +298,52 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         dadosFormPlaquinha.put("qtdCampos", qtdCamposField);
         dadosFormPlaquinha.put("valor", valorField);
         dadosFormPlaquinha.put("peso", pesoField);
+        dadosFormPlaquinha.put("id", idField);
 
-        if (control.insert(dadosFormPlaquinha)) {
-            JOptionPane.showMessageDialog(null, "Plaquinha cadastrada com sucesso!");
-            enableDataPanel(false);
-            preencherTable();
-            limparCampos();
-        } else {
-            JOptionPane.showMessageDialog(null, "Problema ao cadastrar plaquinha :(", "Ops!", 2);
+        switch (escolha) {
+            case 1:
+
+                if (control.insert(dadosFormPlaquinha)) {
+                    JOptionPane.showMessageDialog(null, "Plaquinha cadastrada com sucesso!");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Problema ao cadastrar plaquinha :(", "Ops!", 2);
+                }
+                break;
+
+            case 2:
+                if (control.update(dadosFormPlaquinha)) {
+                    JOptionPane.showMessageDialog(null, "Plaquinha atualizada com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Problema ao cadastrar plaquinha :(", "Ops!", 2);
+                }
+                break;
+
+            case 3:
+                if (control.delete(dadosFormPlaquinha)) {
+                    JOptionPane.showMessageDialog(null, "Plaquinha deletada com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Problema ao deletar plaquinha :(", "Ops!", 2);
+                }
         }
+
+        enableDataPanel(false);
+        preencherTable();
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        // TODO add your handling code here:
+        escolha = 2;
+        enableDataPanel(true);
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        // TODO add your handling code here:
+        escolha = 3;
+        enableDataPanel(true);
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void onOpen(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onOpen
         preencherTable();
+        enableDataPanel(false);
     }//GEN-LAST:event_onOpen
 
     private void preencherTable() {
@@ -332,9 +352,9 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         List<Plaquinha> plaquinhaList = plaquinhaControl.listAll();
 
         PlaquinhaTableModel model = (PlaquinhaTableModel) this.plaquinhaTable.getModel();
-        
+
         model.setNumRows(0);
-        
+
         plaquinhaList.stream().forEach(model::addRow);
     }
 
@@ -354,10 +374,10 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         this.plaquinhaTable.setEnabled(!enabled);
         this.plaquinhaTable.setRowSelectionAllowed(!enabled);
 
-        this.btnBuscar.setEnabled(!enabled);
+        //this.btnBuscar.setEnabled(!enabled);
         this.btnDeletar.setEnabled(!enabled);
         this.btnAtualizar.setEnabled(!enabled);
-        this.btnBuscar.setEnabled(!enabled);
+        this.btnCadastrar1.setEnabled(!enabled);
 
         this.btnConfirmar.setEnabled(enabled);
         this.btnCancelar.setEnabled(enabled);
@@ -382,9 +402,11 @@ public class PlaquinhaForm extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         enableDataPanel(false);
+        limparCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrar1ActionPerformed
+        escolha = 1;
         enableDataPanel(true);
     }//GEN-LAST:event_btnCadastrar1ActionPerformed
 
@@ -395,6 +417,10 @@ public class PlaquinhaForm extends javax.swing.JFrame {
         pesoField.setText(plaquinhaTable.getModel().getValueAt(plaquinhaTable.getSelectedRow(), 3).toString());
         qtdCamposField.setText(plaquinhaTable.getModel().getValueAt(plaquinhaTable.getSelectedRow(), 4).toString());
         valorField.setText(plaquinhaTable.getModel().getValueAt(plaquinhaTable.getSelectedRow(), 5).toString());
+
+        enableDataPanel(false);
+        btnAtualizar.setEnabled(true);
+        btnDeletar.setEnabled(true);
     }//GEN-LAST:event_plaquinhaTableMouseClicked
 
     /**

@@ -22,7 +22,14 @@ public class PessoaControl extends Control<Pessoa> {
 
     @Override
     public List<Pessoa> listAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.dao.listAll();
     }
 
+    public List<Pessoa> listCliente() {
+        return dao.listCliente();
+    }
+    
+    public List<Pessoa> listVendedor() {
+        return super.dao.listVendedor();
+    }
 }
