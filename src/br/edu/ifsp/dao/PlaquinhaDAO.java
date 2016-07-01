@@ -12,11 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe DAO para operações de Plaquinha
  *
  * @author hugo
  */
 public class PlaquinhaDAO extends DAO<Plaquinha> {
 
+    /**
+     * Método DAO para inserir uma nova plaquinha no sistema
+     *
+     * @param objeto
+     * @return boolean - True em caso de sucesso
+     */
     @Override
     public boolean insert(Plaquinha objeto) {
         try {
@@ -44,24 +51,27 @@ public class PlaquinhaDAO extends DAO<Plaquinha> {
         }
     }
 
+    /**
+     * Método DAO para atualizar os dados de uma plaquinha já existente
+     *
+     * @param objeto
+     * @return boolen - True em caso de sucesso
+     */
     @Override
     public boolean update(Plaquinha objeto) {
         try {
             database.connect();
-            
+
             String sql = "update ModeloPlaca set valor = ?, nome = ?, descricao = ?, qtdCampos = ?, peso = ?"
                     + "where idModeloPlaca = ?";
-            
-            
+
             sql = sql.replaceFirst("\\?", objeto.getValor().toString());
             sql = sql.replaceFirst("\\?", "\"" + objeto.getNome() + "\"");
             sql = sql.replaceFirst("\\?", "\"" + objeto.getDescricao() + "\"");
             sql = sql.replaceFirst("\\?", objeto.getQtdCampos().toString());
             sql = sql.replaceFirst("\\?", objeto.getPeso().toString());
             sql = sql.replaceFirst("\\?", objeto.getIdModeloPlaca().toString());
-            
-            System.out.println(sql);
-            
+
             return database.update(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,27 +81,38 @@ public class PlaquinhaDAO extends DAO<Plaquinha> {
         }
     }
 
+    /**
+     * Método DAO para deletar uma plaquinha do sistema
+     *
+     * @param objeto
+     * @return boolean - True em caso de sucesso
+     */
     @Override
     public boolean delete(Plaquinha objeto) {
-        try{
-            
+        try {
+
             database.connect();
-            
+
             String sql = "delete from ModeloPlaca where idModeloPlaca = ?";
-            
+
             sql = sql.replaceFirst("\\?", objeto.getIdModeloPlaca().toString());
-            
+
             System.out.println(sql);
-            
+
             return database.delete(sql);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
-        }finally{
+        } finally {
             database.disconnect();
         }
     }
 
+    /**
+     * Método DAO para obter todas as plaquinhas cadastradas no sistema
+     *
+     * @return List
+     */
     @Override
     public List<Plaquinha> listAll() {
         List<Plaquinha> list = new ArrayList<>();
@@ -125,6 +146,12 @@ public class PlaquinhaDAO extends DAO<Plaquinha> {
         return list;
     }
 
+    /**
+     * Método DAO para obter os dados de uma plaquinha através do seu ID
+     *
+     * @param id
+     * @return Plaquinha
+     */
     @Override
     public Plaquinha getById(int id) {
         Plaquinha p = new Plaquinha();

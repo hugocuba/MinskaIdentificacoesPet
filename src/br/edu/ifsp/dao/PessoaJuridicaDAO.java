@@ -12,11 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe DAO para operações referentes à Pessoa Juridica
  *
  * @author Hugo
  */
 public class PessoaJuridicaDAO extends DAO<PessoaJuridica> {
 
+    /**
+     * Método DAO para inserir a parte jurídica de uma pessoa
+     *
+     * @param objeto
+     * @return boolean - True em caso de sucesso
+     */
     @Override
     public boolean insert(PessoaJuridica objeto) {
         try {
@@ -43,6 +50,12 @@ public class PessoaJuridicaDAO extends DAO<PessoaJuridica> {
         }
     }
 
+    /**
+     * Método para atualizar os dados refentes à uma pessoa juridíca
+     *
+     * @param objeto
+     * @return boolean - True em caso de sucesso
+     */
     @Override
     public boolean update(PessoaJuridica objeto) {
         try {
@@ -52,10 +65,10 @@ public class PessoaJuridicaDAO extends DAO<PessoaJuridica> {
             String sql = "update PessoaJuridica set cnpj = ?, razaoSocial = ?, inscricaoEstadual = ?"
                     + "where idPessoa = ?";
 
-            sql.replaceFirst("\\?", objeto.getCnpj().toString());
-            sql.replaceFirst("\\?", objeto.getRazaoSocial().toString());
-            sql.replaceFirst("\\?", objeto.getInscricaoEstadual().toString());
-            sql.replaceFirst("\\?", objeto.getPessoa().getIdPessoa().toString());
+            sql = sql.replaceFirst("\\?", objeto.getCnpj());
+            sql = sql.replaceFirst("\\?", objeto.getRazaoSocial());
+            sql = sql.replaceFirst("\\?", objeto.getInscricaoEstadual());
+            sql = sql.replaceFirst("\\?", objeto.getPessoa().getIdPessoa().toString());
 
             return database.update(sql);
 
@@ -67,6 +80,12 @@ public class PessoaJuridicaDAO extends DAO<PessoaJuridica> {
         }
     }
 
+    /**
+     * Método para excluir permanentemente os dados referentes à pessoa juridica
+     *
+     * @param objeto
+     * @return boolean - True em caso de sucesso
+     */
     @Override
     public boolean delete(PessoaJuridica objeto) {
         try {
@@ -74,7 +93,7 @@ public class PessoaJuridicaDAO extends DAO<PessoaJuridica> {
 
             String sql = "delete from PessoaFisica where idPessoa = ?";
 
-            sql.replaceFirst("\\?", objeto.getPessoa().getIdPessoa().toString());
+            sql = sql.replaceFirst("\\?", objeto.getPessoa().getIdPessoa().toString());
 
             return database.delete(sql);
 
@@ -86,13 +105,19 @@ public class PessoaJuridicaDAO extends DAO<PessoaJuridica> {
         }
     }
 
+    /**
+     * Método DAO para obter as informações da parte jurídica de todas pessoas
+     * desse tipo no sistema
+     *
+     * @return List
+     */
     @Override
     public List<PessoaJuridica> listAll() {
 
         List<PessoaJuridica> list = new ArrayList<>();
 
         try {
-            
+
             database.connect();
             String sql = "select idPessoa, cnpj, razaoSocial, inscricaoEstadual from PessoaJuridica";
 
@@ -124,6 +149,13 @@ public class PessoaJuridicaDAO extends DAO<PessoaJuridica> {
         return list;
     }
 
+    /**
+     * Método DAO para obter todos os dados de uma pessoa jurídica através de
+     * seu ID
+     *
+     * @param id
+     * @return PessoaJuridica
+     */
     @Override
     public PessoaJuridica getById(int id) {
         PessoaJuridica p = new PessoaJuridica();

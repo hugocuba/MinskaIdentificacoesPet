@@ -10,5 +10,5 @@ package br.edu.ifsp.view;
  * @author hugo
  */
 class IControl<T> {
-    
+
 }

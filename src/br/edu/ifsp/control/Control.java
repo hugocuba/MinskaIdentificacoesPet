@@ -10,6 +10,11 @@ public abstract class Control<E extends IModel> {
 
     protected DAO<E> dao;
 
+    /**
+     * Método blablabla
+     *
+     * @param dao
+     */
     public Control(DAO<E> dao) {
         this.dao = dao;
     }

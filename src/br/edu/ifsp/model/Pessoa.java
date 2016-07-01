@@ -5,9 +5,8 @@
  */
 package br.edu.ifsp.model;
 
-import java.util.Date;
-
 /**
+ * Classe para as pessoas do sistema (clientes, vendedores, fornecedores)
  *
  * @author Hugo
  */
@@ -23,6 +22,7 @@ public class Pessoa implements IModel {
     private String cep;
     private String complemento;
     private String dataCadastro;
+    private Pessoa tipo;
 
     public Integer getIdPessoa() {
         return idPessoa;
@@ -104,4 +104,11 @@ public class Pessoa implements IModel {
         this.dataCadastro = dataCadastro;
     }
 
+    public Pessoa getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Pessoa tipo) {
+        this.tipo = tipo;
+    }
 }

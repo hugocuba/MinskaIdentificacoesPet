@@ -16,10 +16,20 @@ import java.util.List;
  */
 public class PessoaJuridicaControl extends Control<PessoaJuridica> {
 
+    /**
+     * Método construtor do controller de PessoaJuridica
+     *
+     * @param dao
+     */
     public PessoaJuridicaControl(DAO<PessoaJuridica> dao) {
         super(new PessoaJuridicaDAO());
     }
 
+    /**
+     * Método controller para a listagem de todas pessoas jurídicas do sistema
+     *
+     * @return List
+     */
     @Override
     public List<PessoaJuridica> listAll() {
         return super.dao.listAll();

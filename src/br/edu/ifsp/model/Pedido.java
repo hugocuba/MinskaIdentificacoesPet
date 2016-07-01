@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Classe para o pedido feito pelo sistema
  *
  * @author Hugo
  */

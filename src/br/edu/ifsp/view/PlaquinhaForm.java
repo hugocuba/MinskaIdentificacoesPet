@@ -305,7 +305,7 @@ public class PlaquinhaForm extends javax.swing.JFrame {
 
                 if (control.insert(dadosFormPlaquinha)) {
                     JOptionPane.showMessageDialog(null, "Plaquinha cadastrada com sucesso!");
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Problema ao cadastrar plaquinha :(", "Ops!", 2);
                 }
                 break;

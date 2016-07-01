@@ -6,6 +6,7 @@
 package br.edu.ifsp.model;
 
 /**
+ * Classe com os detalhes de uma pessoa jurídica
  *
  * @author Hugo
  */

@@ -214,7 +214,7 @@ public class MariaDatabase implements Database {
             }
 
         } catch (Exception e) {
-            e.getMessage();
+            e.printStackTrace();
         }
 
         return generatedKey;

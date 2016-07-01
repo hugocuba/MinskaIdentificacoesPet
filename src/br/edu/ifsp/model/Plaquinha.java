@@ -8,6 +8,7 @@ package br.edu.ifsp.model;
 import java.math.BigDecimal;
 
 /**
+ * Classe da plaquinha
  *
  * @author Hugo
  */

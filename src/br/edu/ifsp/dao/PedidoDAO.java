@@ -16,26 +16,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe DAO para as operações da classe Pedido
  *
  * @author hugo
  */
 public class PedidoDAO extends DAO<Pedido> {
 
+    /**
+     * Método para chamar a classe que trabalha com a recuperação de ID
+     *
+     * @param objeto
+     * @return
+     */
     @Override
     public boolean insert(Pedido objeto) {
-        throw new UnsupportedOperationException("Por favor, utiliza o método insertAutoId."); //To change body of generated methods, choose Tools | Templates.
+        return insertAutoId(objeto) > 0;
     }
 
     @Override
     public boolean update(Pedido objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
+    /**
+     * Método para deletar um pedido do sistema
+     *
+     * @param objeto
+     * @return boolean = True em caso de sucesso
+     */
     @Override
     public boolean delete(Pedido objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            database.connect();
+            String sql = "delete from Pedido"
+                    + "where idPedido = ?";
+
+            sql = sql.replaceFirst("\\?", objeto.getIdPedido().toString());
+
+            return database.update(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            database.disconnect();
+        }
     }
 
+    /**
+     * Método DAO para recuperar todos os detalhes de pedidos, as plaquinhas de
+     * cada um e os textos que serão escritos nelas
+     *
+     * @return List
+     */
     @Override
     public List<Pedido> listAll() {
 
@@ -185,49 +217,56 @@ public class PedidoDAO extends DAO<Pedido> {
 
     }
 
+    /**
+     * Método DAO para inserir um pedido, as plaquinhas em cada pedido e os
+     * textos de cada plaquinha
+     *
+     * @param objeto
+     * @return int
+     */
     @Override
     public int insertAutoId(Pedido objeto) {
         try {
             database.connect();
 
             String sql = "insert into Pedido(idVendedor, idCliente, dataPedido) values (?, ?, ?)";
-            
+
             sql = sql.replaceFirst("\\?", objeto.getCliente().getIdPessoa().toString());
             sql = sql.replaceFirst("\\?", objeto.getVendedor().getIdPessoa().toString());
             sql = sql.replaceFirst("\\?", "\"" + objeto.getDataPedido().toString() + "\"");
-            
+
             Integer codPedido = database.insertAutoId(sql);
-            
+
             System.out.println(codPedido);
-            
-            for(DetalhePedido dp : objeto.getItens()){
-                
+
+            for (DetalhePedido dp : objeto.getItens()) {
+
                 System.out.println(dp.getValor());
-                
+
                 String sqlDetalhe = "insert into DetalhePedido(idPedido, idModeloPlaca, valor )values(?, ?, ?)";
-                
+
                 sqlDetalhe = sqlDetalhe.replaceFirst("\\?", codPedido.toString());
                 sqlDetalhe = sqlDetalhe.replaceFirst("\\?", dp.getPlaquinha().getIdModeloPlaca().toString());
                 sqlDetalhe = sqlDetalhe.replaceFirst("\\?", dp.getValor().toString());
-                
+
                 Integer codDetalhe = database.insertAutoId(sqlDetalhe);
-                
-                for(TextoPedido tp : dp.getTextos()){
+
+                for (TextoPedido tp : dp.getTextos()) {
                     String sqlTexto = "insert into TextoPedido values (?,?,?)";
-                    
+
                     sqlTexto = sqlTexto.replaceFirst("\\?", codDetalhe.toString());
                     sqlTexto = sqlTexto.replaceFirst("\\?", "\"" + tp.getTipo().toString() + "\"");
                     sqlTexto = sqlTexto.replaceFirst("\\?", "\"" + tp.getTexto().toString() + "\"");
-                    
+
                     System.out.println(sqlTexto);
-                    
+
                     database.insert(sqlTexto);
                 }
-                
+
             }
-            
+
             return 1;
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             return 0;

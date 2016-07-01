@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe DAO para as operações da classe Pessoa
  *
  * @author Hugo
  */
@@ -18,12 +19,38 @@ public class PessoaDAO extends DAO<Pessoa> {
 
     @Override
     public boolean insert(Pessoa objeto) {
-        return false;
+        try {
+            String sql = "insert into Pessoa(idCidade, nome, email, logradouro, numero, bairro, cep, complemento, dataCadastro) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            sql = sql.replaceFirst("\\?", objeto.getIdCidade().toString());
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getNome() + "\"");
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getEmail() + "\"");
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getLogradouro()+ "\"");
+            sql = sql.replaceFirst("\\?", objeto.getNumeroCasa().toString());
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getBairro() + "\"");
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getCep()+ "\"");
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getComplemento() + "\"");
+            sql = sql.replaceFirst("\\?", "\"" + objeto.getDataCadastro()+ "\"");
+            
+            System.out.println(sql);
+
+            System.out.println(database.insertAutoId(sql));
+
+            /*
+            Cadastrar dados físicos/jurídicos
+             */
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            database.disconnect();
+        }
     }
 
     @Override
     public boolean update(Pessoa objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
@@ -31,6 +58,11 @@ public class PessoaDAO extends DAO<Pessoa> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Método DAO para obter todas pessoas registradas no sistema
+     *
+     * @return List
+     */
     @Override
     public List<Pessoa> listAll() {
         List<Pessoa> list = new ArrayList<>();
@@ -68,6 +100,11 @@ public class PessoaDAO extends DAO<Pessoa> {
         return list;
     }
 
+    /**
+     * Metodo DAO para obter todas pessoas do sistema que são clientes
+     *
+     * @return List
+     */
     public List<Pessoa> listCliente() {
         List<Pessoa> list = new ArrayList<>();
 
@@ -104,6 +141,11 @@ public class PessoaDAO extends DAO<Pessoa> {
         return list;
     }
 
+    /**
+     * Método DAO para obter todas pessoas do sistema que são vendedores
+     *
+     * @return List
+     */
     public List<Pessoa> listVendedor() {
         List<Pessoa> list = new ArrayList<>();
 
@@ -140,6 +182,12 @@ public class PessoaDAO extends DAO<Pessoa> {
         return list;
     }
 
+    /**
+     * Método DAO para obter uma pessoa através de seu ID
+     *
+     * @param id
+     * @return Pessoa
+     */
     @Override
     public Pessoa getById(int id) {
         Pessoa p = new Pessoa();
@@ -170,6 +218,12 @@ public class PessoaDAO extends DAO<Pessoa> {
         return p;
     }
 
+    /**
+     * Método DAO para inserir uma nova pessoa no sistema
+     *
+     * @param objeto
+     * @return int - O ID do cliente criado pelo banco de dados
+     */
     @Override
     public int insertAutoId(Pessoa objeto) {
         try {

@@ -7,8 +7,19 @@ import java.util.List;
 import br.edu.ifsp.model.PessoaFisica;
 import java.util.ArrayList;
 
+/**
+ * Classe DAO para operações referentes à PessoaFisica
+ *
+ * @author hugo
+ */
 public class PessoaFisicaDAO extends DAO<PessoaFisica> {
 
+    /**
+     * Método para inserir os dados refentes à pessoa fisica no sistema
+     *
+     * @param objeto
+     * @return boolean - True em caso de sucesso
+     */
     @Override
     public boolean insert(PessoaFisica objeto) {
         try {
@@ -34,6 +45,12 @@ public class PessoaFisicaDAO extends DAO<PessoaFisica> {
         }
     }
 
+    /**
+     * Método para atualizar os dados refentes à uma pessoa física
+     *
+     * @param objeto
+     * @return boolean - True em caso de sucesso
+     */
     @Override
     public boolean update(PessoaFisica objeto) {
         try {
@@ -57,6 +74,12 @@ public class PessoaFisicaDAO extends DAO<PessoaFisica> {
         }
     }
 
+    /**
+     * Método para excluir permanentemente os dados referentes à pessoa fisica
+     *
+     * @param objeto
+     * @return boolean - True em caso de sucesso
+     */
     @Override
     public boolean delete(PessoaFisica objeto) {
         try {
@@ -76,41 +99,54 @@ public class PessoaFisicaDAO extends DAO<PessoaFisica> {
         }
     }
 
+    /**
+     * Método DAO para obter as informações da parte física de todas pessoas
+     * desse tipo no sistema
+     *
+     * @return List
+     */
     @Override
     public List<PessoaFisica> listAll() {
-        
+
         List<PessoaFisica> list = new ArrayList<>();
-        
-        try{
-            
+
+        try {
+
             database.connect();
-            
+
             String sql = "select idPessoa, dataNascimento, cpf from PessoaFisica";
             ResultSet rsPessoaFisica = database.query(sql);
-            
-            while(rsPessoaFisica.next()){
+
+            while (rsPessoaFisica.next()) {
                 PessoaFisica pf = new PessoaFisica();
-                
+
                 pf.setCpf(rsPessoaFisica.getString("cpf"));
                 pf.setDataNascimento(rsPessoaFisica.getString("dataNascimento"));
-                
+
                 PessoaDAO pDAO = new PessoaDAO();
                 Pessoa p = pDAO.getById(rsPessoaFisica.getInt("idPessoa"));
-                
+
                 pf.setPessoa(p);
-                
+
                 list.add(pf);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             database.disconnect();
         }
-        
+
         return list;
-        
+
     }
 
+    /**
+     * Método DAO para obter todos os dados de uma pessoa física através de seu
+     * ID
+     *
+     * @param id
+     * @return PessoaFisica
+     */
     @Override
     public PessoaFisica getById(int id) {
         PessoaFisica p = new PessoaFisica();

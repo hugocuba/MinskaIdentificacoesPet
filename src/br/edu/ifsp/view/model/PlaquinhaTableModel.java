@@ -41,7 +41,6 @@ public class PlaquinhaTableModel extends DefaultTableModel {
 
     boolean[] canEdit = new boolean[]{false, false, false, false, false, false};
 
-
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         return types[columnIndex];

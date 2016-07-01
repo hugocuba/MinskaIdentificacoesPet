@@ -6,6 +6,7 @@
 package br.edu.ifsp.model;
 
 /**
+ * Classe dos textos escritos em cada plaquinha
  *
  * @author hugo
  */

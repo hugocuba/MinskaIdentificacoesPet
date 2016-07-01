@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
+ * Classe para os ítens (plaquinhas) do pedido
  *
  * @author Hugo
  */
